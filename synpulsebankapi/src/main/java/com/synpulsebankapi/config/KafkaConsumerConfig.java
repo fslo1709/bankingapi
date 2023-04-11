@@ -4,16 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import com.synpulsebankapi.Transaction;
+
+@EnableKafka
 @Configuration
 public class KafkaConsumerConfig {
 
@@ -21,43 +24,36 @@ public class KafkaConsumerConfig {
     private String bootstrapServers;
 
     /**
-     * Configuration class for kafka factories
-     * 
-     * @return Map between the producer configuration fields and their values
-     */
-    public Map<String, Object> consumerConfig() {
-        HashMap<String, Object> properties = new HashMap<>();
-        
-        // Stores the server in use
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-
-        // Using strings for the keys and values, the consumer deserializes the values
-        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
-
-        return properties;
-    }
-
-    /**
-     * Calls Kafka's default producer factory to create a new producer using
-     * the config class producerConfig
-     * 
-     * Instantiated as a Bean so it can be injected into the KafkaTemplate function
+     * Calls Kafka's default consumer factory to create a new consumer using
+     * the specified properties Map
      * 
      * @return Producer Factory object
      */
     @Bean
-    public ConsumerFactory<String, String> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfig());
+    public ConsumerFactory<String, Transaction> transactionConsumerFactory() {
+        Map<String, Object> properties = new HashMap<>();
+        
+        // Stores the server in use
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+
+        // Sets a group id for the transaction listener
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "transaction-id");
+
+        return new DefaultKafkaConsumerFactory<>(properties,
+            new StringDeserializer(),
+            new JsonDeserializer<>(Transaction.class));
     }
 
-    public KafkaListenerContainerFactory<
-        ConcurrentMessageListenerContainer<String, String>> factory (
-            ConsumerFactory<String, String> consumerFactory
-        ) {
-            ConcurrentKafkaListenerContainerFactory<String, String> factory = 
-                new ConcurrentKafkaListenerContainerFactory<>();
-            factory.setConsumerFactory(consumerFactory);
-            return factory;
+    /**
+     * Sets the consumer factory to listen to messages and consume them
+     * 
+     * @return KafkaListenerContainerFactory with the specified factory above
+     */
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Transaction> transactionKafkaListenerContainerFactory () {
+        ConcurrentKafkaListenerContainerFactory<String, Transaction> factory = 
+            new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(transactionConsumerFactory());
+        return factory;
     }
 }

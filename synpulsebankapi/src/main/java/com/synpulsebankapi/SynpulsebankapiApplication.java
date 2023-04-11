@@ -13,10 +13,15 @@ public class SynpulsebankapiApplication {
 		SpringApplication.run(SynpulsebankapiApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate) {
-		return args -> {
-			kafkaTemplate.send("Transactions", "meow");
-		};
-	}
+	// @Bean
+	// CommandLineRunner commandLineRunner(KafkaTemplate<String, Transaction> kafkaTemplate) {
+	// 	return args -> {
+	// 		kafkaTemplate.send("Transactions", new Transaction(
+	// 			"89d3o179-abcd-465b-o9ee-e2d5f6ofEld46", 
+	// 			"GBP 100-", 
+	// 			"CH93-0000-0000-0000-0000-0", 
+	// 			"01-10-2020", 
+	// 			"Online payment CHF"));
+	// 	};
+	// }
 }

@@ -6,15 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 
 /**
- * Creates a new topic if not existent that we need for the application,
- * named Transactions. This topic is the one that will be used througout the
- * whole program.
+ * Class used to configure the topics for our application
  */
 @Configuration
 public class KafkaTopicConfig {
     
+    /**
+     * Creates a new topic programatically, named Transactions. 
+     * This topic is the one that will be used througout the whole program.
+     */
     @Bean
-    public NewTopic synpulseTopic() {
+    public NewTopic transactionsTopic() {
         return TopicBuilder.name("Transactions")
             .build();
     }
