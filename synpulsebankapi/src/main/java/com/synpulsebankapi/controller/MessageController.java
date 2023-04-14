@@ -67,6 +67,11 @@ public class MessageController {
         } */
     }
 
+    /**
+     * Simple entry point to get a valid token for verifying this microservice works
+     * 
+     * @return String with a valid token as a get response
+     */
     @GetMapping("/getToken")
     public String getToken() {
         return JwtTokens.getToken();
@@ -82,9 +87,11 @@ public class MessageController {
     //     System.out.println(jws);
     //     return jws.getSignature();
     // }
-    
+
     /**
      * Post mapping to update the Transactions topic
+     * Going to delete later, since populating the data stream is outside
+     * the scope of the microservice
      * 
      * @param id String to identify the transaction
      * @param amount String representing the amount transacted and the currency
@@ -92,46 +99,44 @@ public class MessageController {
      * @param date Date_time object in ISO format
      * @param description Description of the transaction
      */
-    
-    //TODO: date can only be current timestamp
-    @PostMapping("")
-    public void publish(
-        @RequestParam("id") String id,
-        @RequestParam("amount") String amount,
-        @RequestParam("iban") String iban, 
-        @RequestParam("date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime date, 
-        @RequestParam("description") String description
-    ) {
+    // @PostMapping("")
+    // public void publish(
+    //     @RequestParam("id") String id,
+    //     @RequestParam("amount") String amount,
+    //     @RequestParam("iban") String iban, 
+    //     @RequestParam("date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime date, 
+    //     @RequestParam("description") String description
+    // ) {
 
-        // Object to store the message, reads from parameters
-        Transaction transactionObject = new Transaction();
-        transactionObject.setId(id);
-        transactionObject.setAmount(amount);
-        transactionObject.setIban(iban);
-        transactionObject.setDate(date);
-        transactionObject.setDescription(description);
+    //     // Object to store the message, reads from parameters
+    //     Transaction transactionObject = new Transaction();
+    //     transactionObject.setId(id);
+    //     transactionObject.setAmount(amount);
+    //     transactionObject.setIban(iban);
+    //     transactionObject.setDate(date);
+    //     transactionObject.setDescription(description);
 
-        // Used to send the messages to kafka asynchronously
-        CompletableFuture<SendResult<String, Transaction>> future = 
-            transactionKafkaTemplate.send(
-                "Transactions", 
-                transactionObject.getId(),
-                transactionObject);
+    //     // Used to send the messages to kafka asynchronously
+    //     CompletableFuture<SendResult<String, Transaction>> future = 
+    //         transactionKafkaTemplate.send(
+    //             "Transactions", 
+    //             transactionObject.getId(),
+    //             transactionObject);
 
-        // Callback that logs when the message is sent successfully
-        future.whenComplete((result, ex) -> {
-            if (ex == null) {
-                System.out.println(
-                    "Message sent with id: " + transactionObject.getId()
-                );
-            }
-            else {
-                System.out.println(
-                    "Error sending message: " + transactionObject.getId() + 
-                    "\nError: " + ex.getMessage()
-                );
-            }
-        });
-    }
+    //     // Callback that logs when the message is sent successfully
+    //     future.whenComplete((result, ex) -> {
+    //         if (ex == null) {
+    //             System.out.println(
+    //                 "Message sent with id: " + transactionObject.getId()
+    //             );
+    //         }
+    //         else {
+    //             System.out.println(
+    //                 "Error sending message: " + transactionObject.getId() + 
+    //                 "\nError: " + ex.getMessage()
+    //             );
+    //         }
+    //     });
+    // }
     
 }
