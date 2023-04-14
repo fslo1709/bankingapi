@@ -19,11 +19,9 @@ Below we can see the problem description (each part that belongs to the explanat
 ### Summary ###
 ___For an e-Banking Portal you have been given the task to design and implement a reusable REST API___
 
-The REST API is designed using the web library from spring-boot. There are only two operations in our microservice: GET and POST, accessed through /api/v1/synpulse
+The REST API is designed using the web library from spring-boot. There is only one operations designed in the microservice: GET, accessed through /api/v1/synpulse
 
-To do so, the RestController annotation is utilized, along with GetMapping and PostMapping
-
-The reason POST is implemented is to add sample data programatically into a kafka topic, although this can be ommitted since it is not strictly part of the requirements.
+To do so, the RestController annotation is utilized, along with GetMapping
 
 ___for returning the paginated list of money account transactions created in an arbitrary calendar month___
 
@@ -35,11 +33,17 @@ The return value of this call will be a json object with all the transactions of
 
 ___for a given customer who is logged-on in the portal.___
 
+JWT tokens are used to validate that the user is logged in correctly. To implement
+this, it is assumed that the login is part of another service, which is outside
+the scope of this microservice.
+
 ___For each transaction ‘page’ return the total credit and debit values at the current exchange rate (from the third-party provider).___
 
 Third party provider picked is Exchange rates from Abstract API, although any API can be used if the url is changed and a valid key is provided. 
 
 The Key is stored in apiKey.txt, located in java.com.synpulsebankapi, although this is never comitted to Github.
+
+The values of the total credit and debit are appended to the json response.
 
 ___The list of transactions should be consumed from a Kafka topic.___
 
@@ -64,9 +68,10 @@ Key covered in the previous assumption. To create the JSON representation, a JSO
 
 Another implementation was thought of, in which more topics could be created and divided per calendar year as to reduce the size of the topics, but not certain if this would be better or worse. For the sake of time, it was not explored further.
 
-___The user is already authenticated and the API client invoking the transaction API will send a JWT token containing the user’s unique identity key (e.g. P-0123456789)___
+___The user is already authenticated and the API client invoking the transaction API will send a JWT token containing the user’s unique identity key (e.g. P-0123456789)___ 
 
-Key used to create partitions. Authentication is assumed to be true, so the JWT Token is only checked via * ?
+Key used to create partitions. 
+TODO: extract username from JWT token
 
 ___The exchange rate on any given date is provided by an external API___
 
@@ -91,3 +96,10 @@ public class Transaction {
     private String description;
 }
 ```
+### User Diagram
+
+
+### Architecture
+
+
+### Data Modeling
