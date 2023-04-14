@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.catalina.connector.Response;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +32,9 @@ import com.synpulsebankapi.auxiliary.Transaction;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 
+/**
+ * Message Controller of the RESTful API
+ */
 @RestController
 @RequestMapping("api/v1/synpulse")
 public class MessageController {
@@ -50,14 +57,16 @@ public class MessageController {
      * Object, which handles the conversion
     */
     @GetMapping("")
-    public void readTransactionInGivenMonth(
+    public ResponseEntity<ResponseObject> readTransactionInGivenMonth(
         @RequestParam("date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime date
+
     ) {
+        // Extracts the required month and year from the request parameters
         Month month =  date.getMonth();
         int year = date.getYear();
-        CurrencyConverter converter = new CurrencyConverter(null);
-		List<String> balance = converter.convert();
 
+        // Creates a new response object to store the response to the user
+        ResponseObject responseObject = new ResponseObject();
         /*
         try {
             
@@ -65,6 +74,32 @@ public class MessageController {
         finally {
             consumer.close();
         } */
+
+        /**
+         * Uses the transaction list consumed and converts the currencies using
+         * the currency converter object. That object also returns the total 
+         * debit and credit, which we can send back in the body form.
+         */
+
+        // Sample transaction list
+        List<Transaction> transactionList = new ArrayList<Transaction>();
+        Transaction transaction = new Transaction();
+        transaction.setAmount("GBP 100-");
+        transactionList.add(transaction);
+
+        // Instantiates a converter object to perform the conversion, it stores the transaction list in that object
+        CurrencyConverter converter = new CurrencyConverter(transactionList);
+
+        // Calls the convert function and stores the totals in the response object
+		List<Float> balance = converter.convert();
+        responseObject.setCreditTotal(balance.get(0));        
+        responseObject.setDebitTotal(balance.get(1));
+
+        // Creates a response entity to send the object back
+        HttpHeaders headers = new HttpHeaders();
+        ResponseEntity<ResponseObject> entity = new ResponseEntity<>(responseObject, headers, HttpStatus.OK);
+
+        return entity;
     }
 
     /**
@@ -74,11 +109,12 @@ public class MessageController {
      */
     @GetMapping("/getToken")
     public String getToken() {
-        return JwtTokens.getToken();
+        JwtTokens jwtTokens = new JwtTokens();
+        return jwtTokens.getToken();
     }
 
     // This code was here just to check that the tokens are working correctly
-    //
+    
     // @PostMapping("/checkToken")     
     // public String checkToken(
     //     @RequestBody Token token
