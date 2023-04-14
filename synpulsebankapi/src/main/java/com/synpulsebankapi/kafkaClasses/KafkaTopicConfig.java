@@ -1,4 +1,4 @@
-package com.synpulsebankapi.config;
+package com.synpulsebankapi.kafkaClasses;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
@@ -14,10 +14,12 @@ public class KafkaTopicConfig {
     /**
      * Creates a new topic programatically, named Transactions. 
      * This topic is the one that will be used througout the whole program.
+     * 
      */
     @Bean
     public NewTopic transactionsTopic() {
         return TopicBuilder.name("Transactions")
+            .partitions(100)
             .build();
     }
 }

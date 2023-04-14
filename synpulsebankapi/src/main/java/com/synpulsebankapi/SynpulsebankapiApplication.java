@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+
 @SpringBootApplication
 public class SynpulsebankapiApplication {
  
@@ -15,13 +18,19 @@ public class SynpulsebankapiApplication {
 
 	// @Bean
 	// CommandLineRunner commandLineRunner(KafkaTemplate<String, Transaction> kafkaTemplate) {
+
+	// 	LocalDateTime lTime = LocalDateTime.of(2016, Month.JUNE, 29, 12, 00, 00);
 	// 	return args -> {
-	// 		kafkaTemplate.send("Transactions", new Transaction(
+	// 		kafkaTemplate.send(
+	// 			"Transactions", 
 	// 			"89d3o179-abcd-465b-o9ee-e2d5f6ofEld46", 
-	// 			"GBP 100-", 
-	// 			"CH93-0000-0000-0000-0000-0", 
-	// 			"01-10-2020", 
-	// 			"Online payment CHF"));
+	// 			new Transaction(
+	// 				"89d3o179-abcd-465b-o9ee-e2d5f6ofEld46",
+	// 				"CHF 75",
+	// 				"CH93-0000-0000-0000-0000-0",
+	// 				lTime,
+	// 				"Online payment CHF"
+	// 		));
 	// 	};
 	// }
 }

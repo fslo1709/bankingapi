@@ -1,4 +1,4 @@
-package com.synpulsebankapi;
+package com.synpulsebankapi.controller;
 
 public record MessageRequest(String message) {
     

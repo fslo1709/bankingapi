@@ -1,4 +1,4 @@
-package com.synpulsebankapi;
+package com.synpulsebankapi.auxiliary;
 
 import java.time.LocalDateTime;
 

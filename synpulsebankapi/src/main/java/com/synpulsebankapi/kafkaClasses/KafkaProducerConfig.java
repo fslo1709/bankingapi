@@ -1,4 +1,4 @@
-package com.synpulsebankapi.config;
+package com.synpulsebankapi.kafkaClasses;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.synpulsebankapi.Transaction;
+import com.synpulsebankapi.auxiliary.Transaction;
 
 /**
  * Configuration Class for Kafka Producers
