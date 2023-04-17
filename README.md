@@ -1,4 +1,4 @@
-# Backend Engineer Hiring Challenge
+# Banking microservice
 
 ## Code Organization
 This micro-service is divided into three folders:
