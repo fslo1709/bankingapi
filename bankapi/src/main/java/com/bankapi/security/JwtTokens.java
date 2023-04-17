@@ -1,4 +1,4 @@
-package com.synpulsebankapi.security;
+package com.bankapi.security;
 
 import java.security.Key;
 import java.util.Base64;

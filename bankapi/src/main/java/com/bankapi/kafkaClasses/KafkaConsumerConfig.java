@@ -1,4 +1,4 @@
-package com.synpulsebankapi.kafkaClasses;
+package com.bankapi.kafkaClasses;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -12,7 +12,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.stereotype.Service;
 
-import com.synpulsebankapi.auxiliary.Transaction;
+import com.bankapi.auxiliary.Transaction;
 
 @EnableKafka
 @Service

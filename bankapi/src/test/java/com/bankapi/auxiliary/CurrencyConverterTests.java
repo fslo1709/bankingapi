@@ -1,4 +1,4 @@
-package com.synpulsebankapi.auxiliary;
+package com.bankapi.auxiliary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

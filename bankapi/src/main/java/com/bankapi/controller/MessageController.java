@@ -1,4 +1,4 @@
-package com.synpulsebankapi.controller;
+package com.bankapi.controller;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.synpulsebankapi.auxiliary.CurrencyConverter;
-import com.synpulsebankapi.auxiliary.Transaction;
-import com.synpulsebankapi.kafkaClasses.KafkaConsumerConfig;
-import com.synpulsebankapi.kafkaClasses.Polling;
-import com.synpulsebankapi.security.JwtTokens;
+import com.bankapi.auxiliary.CurrencyConverter;
+import com.bankapi.auxiliary.Transaction;
+import com.bankapi.kafkaClasses.KafkaConsumerConfig;
+import com.bankapi.kafkaClasses.Polling;
+import com.bankapi.security.JwtTokens;
 
 import lombok.Getter;
 import lombok.Setter;

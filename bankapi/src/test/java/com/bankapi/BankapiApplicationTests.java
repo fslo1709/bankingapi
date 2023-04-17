@@ -1,10 +1,10 @@
-package com.synpulsebankapi;
+package com.bankapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SynpulsebankapiApplicationTests {
+class BankapiApplicationTests {
 
 	@Test
 	void contextLoads() {

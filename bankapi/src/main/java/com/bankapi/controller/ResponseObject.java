@@ -1,8 +1,8 @@
-package com.synpulsebankapi.controller;
+package com.bankapi.controller;
 
 import java.util.List;
 
-import com.synpulsebankapi.auxiliary.Transaction;
+import com.bankapi.auxiliary.Transaction;
 
 import lombok.Data;
 import lombok.Getter;

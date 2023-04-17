@@ -1,4 +1,4 @@
-package com.synpulsebankapi.kafkaClasses;
+package com.bankapi.kafkaClasses;
 
 import java.time.Duration;
 import java.time.Month;
@@ -10,7 +10,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.stereotype.Service;
 
-import com.synpulsebankapi.auxiliary.Transaction;
+import com.bankapi.auxiliary.Transaction;
 
 /**
  * Auxiliary class to poll using the specified consumer

@@ -1,4 +1,4 @@
-package com.synpulsebankapi.controller;
+package com.bankapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -35,13 +35,13 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.synpulsebankapi.auxiliary.CurrencyConverter;
-import com.synpulsebankapi.auxiliary.Transaction;
-import com.synpulsebankapi.controller.MessageController;
-import com.synpulsebankapi.controller.ResponseObject;
-import com.synpulsebankapi.kafkaClasses.KafkaConsumerConfig;
-import com.synpulsebankapi.kafkaClasses.Polling;
-import com.synpulsebankapi.security.JwtTokens;
+import com.bankapi.auxiliary.CurrencyConverter;
+import com.bankapi.auxiliary.Transaction;
+import com.bankapi.controller.MessageController;
+import com.bankapi.controller.ResponseObject;
+import com.bankapi.kafkaClasses.KafkaConsumerConfig;
+import com.bankapi.kafkaClasses.Polling;
+import com.bankapi.security.JwtTokens;
 
 @SpringBootTest(classes = MessageController.class)
 // @AutoConfigureMockMvc

@@ -1,12 +1,12 @@
-package com.synpulsebankapi;
+package com.bankapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SynpulsebankapiApplication {
+public class BankapiApplication {
  
 	public static void main(String[] args) {
-		SpringApplication.run(SynpulsebankapiApplication.class, args);
+		SpringApplication.run(BankapiApplication.class, args);
 	}
 }
