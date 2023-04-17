@@ -53,6 +53,8 @@ This is implemented by the MessageController, which uses the user id to tell the
 
 ___Build a Docker image out of the application and prepare the configuration for deploying it to Kubernetes / OpenShift.___
 
+Docker image built with CircleCI integration, the config can be found on ./.circleci/config.yml
+
 ### Assumptions
 ___Every e-banking client has one or more accounts in different currencies (e.g. GBP, EUR, CHF)___
 
@@ -95,10 +97,14 @@ public class Transaction {
     private String description;
 }
 ```
-## User Diagram
 
+### Response Structure
+
+The response sent back to the client consists of the following fields:
+- credit: Total credit value
+- debit: Total debit value
+- transactions: List of Transaction objects
 
 ## Architecture
 
-
-## Data Modeling
+![image info](./architecture.png)
