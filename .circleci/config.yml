@@ -18,6 +18,8 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      # Code is inside another folder, cd into - 
+      - run: cd synpulsebankapi/ 
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
