@@ -8,12 +8,14 @@ import java.util.List;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.springframework.stereotype.Service;
 
 import com.synpulsebankapi.auxiliary.Transaction;
 
 /**
  * Auxiliary class to poll using the specified consumer
  */
+@Service
 public class Polling {
 
     /**

@@ -8,15 +8,14 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.stereotype.Service;
 
 import com.synpulsebankapi.auxiliary.Transaction;
 
 @EnableKafka
-@Configuration
+@Service
 public class KafkaConsumerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
@@ -29,7 +28,6 @@ public class KafkaConsumerConfig {
      * @param id The id of the user
      * @return Properties object
      */
-    @Bean
     public Properties transactionByIdConsumerProperties() {
         Properties properties = new Properties();
         
@@ -51,7 +49,6 @@ public class KafkaConsumerConfig {
      * @param id To assign it to the specific partition
      * @return consumer to consume from the partition
      */
-    @Bean
     public KafkaConsumer<String, Transaction> transactionByIdConsumer (int partition) {
         KafkaConsumer<String, Transaction> consumer = 
             new KafkaConsumer<String, Transaction>(transactionByIdConsumerProperties());

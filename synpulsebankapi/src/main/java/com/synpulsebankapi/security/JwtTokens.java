@@ -6,6 +6,7 @@ import java.util.Base64;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * Class that manages jwt tokens, creating and validating them
  */
-@Component
+@Service
 public class JwtTokens {
     /**
      * Normally secrets wouldn't be stored this way, but since the token generation
