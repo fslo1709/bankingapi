@@ -35,7 +35,7 @@ ___for a given customer who is logged-on in the portal.___
 
 JWT tokens are used to validate that the user is logged in correctly. To implement
 this, it is assumed that the login is part of another service, which is outside
-the scope of this microservice.
+the scope of this microservice. That login service would provide the user with a JWT token, which will be validated by our microservice.
 
 ___For each transaction ‘page’ return the total credit and debit values at the current exchange rate (from the third-party provider).___
 
@@ -96,10 +96,10 @@ public class Transaction {
     private String description;
 }
 ```
-### User Diagram
+## User Diagram
 
 
-### Architecture
+## Architecture
 
 
-### Data Modeling
+## Data Modeling
