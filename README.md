@@ -3,16 +3,16 @@
 ## Code Organization
 This micro-service is divided into three folders:
 - auxiliary: Classes that support the microservice
-    - CurrencyConverter: 
-    - Transaction:
+    - CurrencyConverter: Calls the third party API to perform the transaction
+    - Transaction: Object structure of a transaction
 - controller: RESTful API related classes
-    - MessageController
-    - MessageRequest
+    - MessageController: Controller for the GET entry point in the API
+    - ResponseObject: Used to send the response back
 - kafkaClasses: All kafka-related classes
-    - KafkaConsumerGroup
-    - KafkaProducerConfig
-    - KafkaTopicConfig
-    - Ka
+    - KafkaConsumerConfig: Configuration class for Kafka consumers
+    - Polling: Accessory class used to consume from Kafka
+- security: For the JWT tokens
+    - JwtTokens: In charge of managing the JWT Tokens
 
 ## Requirements Implementation
 Below we can see the problem description (each part that belongs to the explanation will be ___highlighted like this___) and assumptions, explaining how they're implemented in the code.
@@ -70,8 +70,7 @@ Another implementation was thought of, in which more topics could be created and
 
 ___The user is already authenticated and the API client invoking the transaction API will send a JWT token containing the user’s unique identity key (e.g. P-0123456789)___ 
 
-Key used to create partitions. 
-TODO: extract username from JWT token
+Key used to create partitions. Extracted in the JwtToken class
 
 ___The exchange rate on any given date is provided by an external API___
 
