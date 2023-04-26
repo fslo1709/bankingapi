@@ -25,6 +25,10 @@ public class CurrencyConverterTests {
         expectedTransactionList.add(new Transaction("A", "USD 1", "IBAN", LocalDateTime.of(2023, 1, 1, 0, 0, 0), "Description"));
         
         currencyConverter.assignList(expectedTransactionList);
-        assertEquals(expectedTransactionList, currencyConverter.getTransactionList(), "It assigns the object correctly");
+        assertEquals(expectedTransactionList.get(0).getId(), currencyConverter.getTransactionList().get(0).getId(), "It assigns the id correctly");
+        assertEquals(expectedTransactionList.get(0).getAmount(), currencyConverter.getTransactionList().get(0).getAmount(), "It assigns the amount correctly");
+        assertEquals(expectedTransactionList.get(0).getIban(), currencyConverter.getTransactionList().get(0).getIban(), "It assigns the iban correctly");
+        assertEquals(expectedTransactionList.get(0).getDate(), currencyConverter.getTransactionList().get(0).getDate(), "It assigns the date correctly");
+        assertEquals(expectedTransactionList.get(0).getDescription(), currencyConverter.getTransactionList().get(0).getDescription(), "It assigns the description correctly");
     }
 }
