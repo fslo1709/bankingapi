@@ -108,3 +108,14 @@ The response sent back to the client consists of the following fields:
 ## Architecture
 
 ![image info](./architecture.png)
+
+## Build and Docker
+
+To build the package run the command
+
+```mvn package```
+
+To build the docker image run the command
+
+```mvn spring-boot:build-image```
+
